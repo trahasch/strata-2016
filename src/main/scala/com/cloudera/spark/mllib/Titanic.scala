@@ -4,19 +4,12 @@ package com.cloudera.spark.mllib
  * Created by jayantshekhar on 8/24/15.
  */
 
-import com.cloudera.spark.dataset.DatasetMovieLens
 import com.cloudera.spark.dataset.DatasetTitanic
-import com.cloudera.spark.dataset.DatasetTitanic
-import com.cloudera.spark.mllib.SparkConfUtil
-import com.cloudera.spark.randomforest.JavaRandomForest
 import com.cloudera.spark.randomforest.JavaRandomForest
 import org.apache.spark.SparkConf
-import org.apache.spark.api.java.JavaRDD
-import org.apache.spark.api.java.JavaSparkContext
-import org.apache.spark.ml.recommendation.ALSModel
+import org.apache.spark.api.java.{JavaRDD, JavaSparkContext}
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.sql.DataFrame
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{DataFrame, SQLContext}
 
 /**
  * Created by jayantshekhar on 6/27/15.
