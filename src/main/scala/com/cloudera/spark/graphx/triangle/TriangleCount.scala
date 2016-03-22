@@ -28,12 +28,12 @@ object TriangleCount {
     val graph = DatasetSimpleGraph.graph(sc)
 
     val outdegrees = graph.outDegrees;
-    val aaa = outdegrees.collect();
-    println(aaa.mkString(" "))
+    val out = outdegrees.collect();
+    println(out.mkString(" "))
 
     val indegrees = graph.inDegrees;
-    val bbb = indegrees.collect();
-    println(bbb.mkString(" "))
+    val in = indegrees.collect();
+    println(in.mkString(" "))
 
     // number of triangles passing through each vertex
     val triangles = graph.triangleCount()
