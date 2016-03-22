@@ -1,13 +1,7 @@
 package com.cloudera.spark.graphx.dataset
 
-import com.cloudera.spark.mllib.SparkConfUtil
-import org.apache.spark.graphx.{Graph, Edge}
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.{SparkContext, SparkConf}
-
-/**
- * Created by jayant on 7/12/15.
- */
+import org.apache.spark.SparkContext
+import org.apache.spark.graphx.{Edge, Graph}
 
 object DatasetSimpleGraph {
 

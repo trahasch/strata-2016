@@ -4,9 +4,6 @@ import com.cloudera.spark.graphx.dataset.{DatasetUsers, DatasetFollowers, Datase
 import com.cloudera.spark.mllib.SparkConfUtil
 import org.apache.spark.{SparkContext, SparkConf}
 
-/**
- * Created by jayant on 7/12/15.
- */
 object ConnectedComponents {
 
   def main(args: Array[String]) {
@@ -20,7 +17,7 @@ object ConnectedComponents {
     println("|             Connected Components   |")
     println("======================================")
 
-    val sparkConf: SparkConf = new SparkConf().setAppName("Test")
+    val sparkConf: SparkConf = new SparkConf().setAppName("Connected Components")
     SparkConfUtil.setConf(sparkConf)
     val sc: SparkContext = new SparkContext(sparkConf)
 
