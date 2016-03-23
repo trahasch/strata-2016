@@ -6,31 +6,30 @@ Installation Requirements:
    	* Download source from https://zeppelin.incubator.apache.org/download.html
    	
    	* Compile zeppelin
-    	
+    	```
     	mvn clean package -DskipTests -Pspark-1.6 -Phadoop-2.6 -Ppyspark
-   	
+   		```
    	* Configure (if needed)
-		
+		```
 		./conf/zeppelin-env.sh
-		
 		./conf/zeppelin-site.xml
-	
+		```
 	* Run the Zeppelin daemon
-		
+		```
 		./bin/zeppelin-daemon.sh start|stop|status|restart
-		
 		~/Downloads/zeppelin-0.5.6-incubating/bin/zeppelin-daemon.sh start
-	
+		```
 	* cd to the directory where you have downloaded the Tutorial data
-		
+		```
 		cd /Volumes/sdxc-01/Strata-2016/
-	
-	* Run IDE in browser
-		
+		```
+	* Run Zeppelin IDE in browser
+		```
 		localhost:8080
+		```
 3. Maven
 4. Git 
-5. Download tutorial code and data from https://github.com/jayantshekhar/strata-2016
+5. Download tutorial code & data from https://github.com/jayantshekhar/strata-2016 (You are here!!)
 6. Apache Spark
 
 Run KMeans
