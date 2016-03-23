@@ -27,7 +27,7 @@ object Random {
 
     val normalRDD = RandomRDDs.normalRDD(sc, 1000, 10)
     val temp = normalRDD.collect();
-    println(temp.mkString(" "))
+    println(temp.mkString("\n"))
 
     sc.stop()
 
