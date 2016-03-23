@@ -13,7 +13,7 @@ import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.SQLContext;
 
 /**
- * Created by jayantshekhar on 6/27/15.
+ * Created by jayantshekhar
  */
 public class JavaTitanic {
 

@@ -30,22 +30,16 @@ import org.apache.spark.api.java.function.Function;
 import org.apache.spark.mllib.fpm.FPGrowth;
 import org.apache.spark.mllib.fpm.FPGrowthModel;
 
-/**
- * Java example for mining frequent itemsets using FP-growth.
- * Example usage:  ./bin/run-example mllib.JavaFPGrowthExample ./data/mllib/sample_fpgrowth.txt
- */
 public class JavaFPGrowth {
 
     public static void main(String[] args) {
-        String inputFile;
+        String inputFile = "data/fpg";
         double minSupport = 0.3;
         int numPartition = -1;
-        if (args.length < 1) {
-            System.err.println(
-                    "Usage: JavaFPGrowth <input_file> [minSupport] [numPartition]");
-            System.exit(1);
+
+        if (args.length >= 2) {
+            inputFile = args[0];
         }
-        inputFile = args[0];
         if (args.length >= 2) {
             minSupport = Double.parseDouble(args[1]);
         }

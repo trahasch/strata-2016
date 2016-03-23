@@ -1,12 +1,11 @@
 package com.cloudera.spark.mllib.randomdatageneration
 
-import com.cloudera.spark.graphx.dataset.DatasetSimpleGraph
 import com.cloudera.spark.mllib.SparkConfUtil
 import org.apache.spark.mllib.random.RandomRDDs
-import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
- * Created by jayant on 9/29/15.
+ * Created by jayant
  */
 object Random {
 

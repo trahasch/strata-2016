@@ -1,9 +1,5 @@
 package com.cloudera.spark.mllib
 
-/**
- * Created by jayantshekhar on 8/24/15.
- */
-
 import com.cloudera.spark.dataset.DatasetTitanic
 import com.cloudera.spark.randomforest.JavaRandomForest
 import org.apache.spark.SparkConf
@@ -12,7 +8,7 @@ import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.sql.{DataFrame, SQLContext}
 
 /**
- * Created by jayantshekhar on 6/27/15.
+ * Created by jayantshekhar
  */
 object Titanic {
 

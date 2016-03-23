@@ -5,7 +5,7 @@ import org.apache.spark.graphx.{GraphLoader, Graph}
 import org.apache.spark.rdd.RDD
 
 /**
- * Created by jayant on 7/13/15.
+ * Created by jayant
  */
 object DatasetUsers {
 

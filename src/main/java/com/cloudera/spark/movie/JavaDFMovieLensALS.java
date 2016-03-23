@@ -11,7 +11,7 @@ import org.apache.spark.sql.SQLContext;
 import java.util.HashMap;
 
 /**
- * Created by jayant on 6/24/15.
+ * Created by jayant
  */
 public final class JavaDFMovieLensALS {
 

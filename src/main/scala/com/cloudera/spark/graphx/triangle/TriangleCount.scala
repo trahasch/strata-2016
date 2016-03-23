@@ -5,7 +5,7 @@ import com.cloudera.spark.mllib.SparkConfUtil
 import org.apache.spark.{SparkConf, SparkContext}
 
 /**
- * Created by jayant on 7/12/15.
+ * Created by jayant
  */
 
 object TriangleCount {

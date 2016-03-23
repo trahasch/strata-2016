@@ -9,7 +9,7 @@ import org.apache.spark.mllib.linalg.Vectors;
 import java.util.regex.Pattern;
 
 /**
- * Created by jayantshekhar on 6/27/15.
+ * Created by jayantshekhar
  */
 public class DatasetKMeans {
 

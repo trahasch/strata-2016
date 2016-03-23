@@ -5,7 +5,7 @@ import com.cloudera.spark.mllib.SparkConfUtil
 import org.apache.spark.{SparkContext, SparkConf}
 
 /**
- * Created by jayant on 7/12/15.
+ * Created by jayant
  */
 object PageRank {
 

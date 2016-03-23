@@ -3,7 +3,7 @@ package com.cloudera.spark.mllib
 import org.apache.spark.SparkConf
 
 /**
- * Created by jayant on 6/22/15.
+ * Created by jayant
  */
 object SparkConfUtil {
 
