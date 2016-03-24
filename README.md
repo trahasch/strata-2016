@@ -50,8 +50,10 @@ Installation Requirements:
 		
 3. Maven
 	* https://maven.apache.org/install.html 
-4. Git 
-5. Download or git clone the tutorial code & data from https://github.com/jayantshekhar/strata-2016 (You are here!!)
+4. Git (Nice to have)
+	* https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+5. Tutorial code & data
+	* Download or ```git clone``` the from https://github.com/jayantshekhar/strata-2016 (You are here!!)
 6. Apache Spark
 
 Run KMeans
