@@ -24,6 +24,11 @@ Installation Requirements:
 		./conf/zeppelin-site.xml
 		```
 		
+	* cd to the directory where you have downloaded the Tutorial data
+		```
+		cd /Volumes/sdxc-01/Strata-2016/
+		```
+		
 	* Run the Zeppelin daemon
 		* The command for managing the zeppelin process is
 			```./bin/zeppelin-daemon.sh start|stop|status|restart```
@@ -31,11 +36,6 @@ Installation Requirements:
 		to start you would use the command
 			```~/Downloads/zeppelin-0.5.6-incubating/bin/zeppelin-daemon.sh start```	
 
-	* cd to the directory where you have downloaded the Tutorial data
-		```
-		cd /Volumes/sdxc-01/Strata-2016/
-		```
-		
 	* Run Zeppelin IDE in browser
 	
 		```
