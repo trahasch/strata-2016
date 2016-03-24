@@ -44,9 +44,15 @@ public class DatasetTitanic {
 
                 int survived = toInt(row.getString(1));
 
-                double[] arr = new double[2];
-                arr[0] = toDouble(row.getString(5)); // age
-                arr[1] = toDouble(row.getString(6));
+                double[] arr = new double[3];
+
+                String sex = row.getString(4); // sex
+                if (sex.equals("male"))
+                    arr[0] = 0.0;
+                else
+                    arr[0] = 1.0;
+                arr[1] = toDouble(row.getString(5)); // age
+                arr[2] = toDouble(row.getString(6)); // SibSp
 
                 Vector vector = Vectors.dense(arr);
 
