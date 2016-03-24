@@ -36,7 +36,7 @@ import org.apache.spark.mllib.util.MLUtils;
 
 public final class JavaRandomForest {
 
-    public static void testClassification(JavaRDD<LabeledPoint> trainingData,
+    public static void classifyAndTest(JavaRDD<LabeledPoint> trainingData,
                                           JavaRDD<LabeledPoint> testData,
                                           HashMap<Integer, Integer> categoricalFeaturesInfo) {
         // Train a RandomForest model.
@@ -138,7 +138,7 @@ public final class JavaRandomForest {
         // classification using RandomForest
         System.out.println("\nRunning example of classification using RandomForest\n");
         HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
-        testClassification(trainingData, testData, categoricalFeaturesInfo);
+        classifyAndTest(trainingData, testData, categoricalFeaturesInfo);
 
         // regression using RandomForest
         System.out.println("\nRunning example of regression using RandomForest\n");

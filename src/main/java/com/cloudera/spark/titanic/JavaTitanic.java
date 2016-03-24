@@ -42,11 +42,11 @@ public class JavaTitanic {
         JavaRDD<LabeledPoint> testData = splits[1];
 
         HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
-        categoricalFeaturesInfo.put(0, 2); // feature 0 is binary (taking values 0 or 1) 
+        categoricalFeaturesInfo.put(0, 2); // feature 0 is binary (taking values 0 or 1)
 
         // classification using RandomForest
         System.out.println("\nRunning classification using RandomForest\n");
-        JavaRandomForest.testClassification(trainingData, testData, categoricalFeaturesInfo);
+        JavaRandomForest.classifyAndTest(trainingData, testData, categoricalFeaturesInfo);
 
         // regression using Random Forest
         System.out.println("\nRunning regression using RandomForest\n");
