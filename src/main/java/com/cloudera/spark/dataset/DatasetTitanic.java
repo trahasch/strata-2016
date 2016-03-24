@@ -45,7 +45,7 @@ public class DatasetTitanic {
                 int survived = toInt(row.getString(1));
 
                 double[] arr = new double[2];
-                arr[0] = toDouble(row.getString(5));
+                arr[0] = toDouble(row.getString(5)); // age
                 arr[1] = toDouble(row.getString(6));
 
                 Vector vector = Vectors.dense(arr);

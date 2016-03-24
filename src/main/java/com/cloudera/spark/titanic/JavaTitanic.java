@@ -17,17 +17,13 @@ import org.apache.spark.sql.SQLContext;
  */
 public class JavaTitanic {
 
+    // Usage: JavaTitanic <input_file>
     public static void main(String[] args) {
 
-        // usage
-        if (args.length < 1) {
-            System.err.println(
-                    "Usage: JavaTitanic <input_file>");
-            System.exit(1);
+        String inputFile = "data/titanic/train.csv";
+        if (args.length >= 2) {
+            inputFile = args[0];
         }
-
-        // input parameters
-        String inputFile = args[0];
 
         // spark context
         SparkConf sparkConf = new SparkConf().setAppName("JavaTitanic");
@@ -36,24 +32,24 @@ public class JavaTitanic {
         SQLContext sqlContext = new SQLContext(sc);
 
         // create data frame
-        DataFrame results = DatasetTitanic.createDF(sqlContext, inputFile);
+        //DataFrame results = DatasetTitanic.createDF(sqlContext, inputFile);
 
-        results.printSchema();
+        //results.printSchema();
 
         // LabeledPoint RDD
         JavaRDD<LabeledPoint> data = DatasetTitanic.createLabeledPointsRDD(sc, sqlContext, inputFile);
-
+data.count();
         // Split the data into training and test sets (30% held out for testing)
         JavaRDD<LabeledPoint>[] splits = data.randomSplit(new double[]{0.7, 0.3});
         JavaRDD<LabeledPoint> trainingData = splits[0];
         JavaRDD<LabeledPoint> testData = splits[1];
 
         // classification using RandomForest
-        System.out.println("\nRunning example of classification using RandomForest\n");
+        System.out.println("\nRunning classification using RandomForest\n");
         JavaRandomForest.testClassification(trainingData, testData);
 
         // regression using Random Forest
-        System.out.println("\nRunning example of regression using RandomForest\n");
+        System.out.println("\nRunning regression using RandomForest\n");
         JavaRandomForest.testRegression(trainingData, testData);
 
         sc.stop();

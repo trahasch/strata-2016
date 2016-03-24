@@ -29,7 +29,7 @@
     <dependency>
         <groupId>com.databricks</groupId>
         <artifactId>spark-csv_${scala.minor.version}</artifactId>
-        <version>1.0.3</version>
+        <version>1.4.0</version>
     </dependency>
 
     <dependency>
