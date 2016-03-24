@@ -25,19 +25,13 @@ Installation Requirements:
 		```
 		
 	* Run the Zeppelin daemon
-	
-		```
-		The command for managing the zeppelin process is
-			./bin/zeppelin-daemon.sh start|stop|status|restart
-		
-		So if you have compiled Zeppelin in ~/Downloads/zeppelin-0.5.6-incubating, then
+		* The command for managing the zeppelin process is
+			```./bin/zeppelin-daemon.sh start|stop|status|restart```
+		* So if you have compiled Zeppelin in ~/Downloads/zeppelin-0.5.6-incubating, then
 		to start you would use the command
-		
-		~/Downloads/zeppelin-0.5.6-incubating/bin/zeppelin-daemon.sh start
-		```
-		
+			```~/Downloads/zeppelin-0.5.6-incubating/bin/zeppelin-daemon.sh start```	
+
 	* cd to the directory where you have downloaded the Tutorial data
-	
 		```
 		cd /Volumes/sdxc-01/Strata-2016/
 		```
@@ -46,8 +40,7 @@ Installation Requirements:
 	
 		```
 		localhost:8080
-		```
-		
+		```	
 3. Maven
 	* https://maven.apache.org/install.html 
 4. Git (Nice to have)
