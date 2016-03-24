@@ -33,8 +33,10 @@ object Titanic {
     val trainingData: JavaRDD[LabeledPoint] = splits(0)
     val testData: JavaRDD[LabeledPoint] = splits(1)
 
-    System.out.println("\nRunning example of classification using RandomForest\n")
-    JavaRandomForest.testClassification(trainingData, testData)
+    val categoricalFeaturesInfo: java.util.HashMap[Integer, Integer] = new java.util.HashMap[Integer, Integer]
+
+    System.out.println("\nRunning classification using RandomForest\n")
+    JavaRandomForest.testClassification(trainingData, testData, categoricalFeaturesInfo)
 
     System.out.println("\nRunning example of regression using RandomForest\n")
     JavaRandomForest.testRegression(trainingData, testData)

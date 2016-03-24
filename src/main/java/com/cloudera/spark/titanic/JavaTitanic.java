@@ -12,6 +12,8 @@ import org.apache.spark.mllib.regression.LabeledPoint;
 import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.SQLContext;
 
+import java.util.HashMap;
+
 /**
  * Created by jayantshekhar
  */
@@ -31,22 +33,19 @@ public class JavaTitanic {
         JavaSparkContext sc = new JavaSparkContext(sparkConf);
         SQLContext sqlContext = new SQLContext(sc);
 
-        // create data frame
-        //DataFrame results = DatasetTitanic.createDF(sqlContext, inputFile);
-
-        //results.printSchema();
-
         // LabeledPoint RDD
         JavaRDD<LabeledPoint> data = DatasetTitanic.createLabeledPointsRDD(sc, sqlContext, inputFile);
-data.count();
+
         // Split the data into training and test sets (30% held out for testing)
         JavaRDD<LabeledPoint>[] splits = data.randomSplit(new double[]{0.7, 0.3});
         JavaRDD<LabeledPoint> trainingData = splits[0];
         JavaRDD<LabeledPoint> testData = splits[1];
 
+        HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
+
         // classification using RandomForest
         System.out.println("\nRunning classification using RandomForest\n");
-        JavaRandomForest.testClassification(trainingData, testData);
+        JavaRandomForest.testClassification(trainingData, testData, categoricalFeaturesInfo);
 
         // regression using Random Forest
         System.out.println("\nRunning regression using RandomForest\n");

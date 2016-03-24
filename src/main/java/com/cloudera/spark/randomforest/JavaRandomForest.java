@@ -36,19 +36,15 @@ import org.apache.spark.mllib.util.MLUtils;
 
 public final class JavaRandomForest {
 
-    /**
-     * Note: This example illustrates binary classification.
-     * For information on multiclass classification, please refer to the JavaDecisionTree.java
-     * example.
-     */
     public static void testClassification(JavaRDD<LabeledPoint> trainingData,
-                                           JavaRDD<LabeledPoint> testData) {
+                                          JavaRDD<LabeledPoint> testData,
+                                          HashMap<Integer, Integer> categoricalFeaturesInfo) {
         // Train a RandomForest model.
         //  Empty categoricalFeaturesInfo indicates all features are continuous.
         Integer numClasses = 2;
 
-        // storing arity of categorical features. E.g., an entry (n -> k) indicates that feature n is categorical with k categories indexed from 0: {0, 1, ..., k-1}
-        HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
+        // storing arity of categorical features. E.g., an entry (n -> k) indicates that
+        // feature n is categorical with k categories indexed from 0: {0, 1, ..., k-1}
 
         Integer numTrees = 3; // Use more in practice.
         String featureSubsetStrategy = "auto"; // Let the algorithm choose.
@@ -141,7 +137,8 @@ public final class JavaRandomForest {
 
         // classification using RandomForest
         System.out.println("\nRunning example of classification using RandomForest\n");
-        testClassification(trainingData, testData);
+        HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
+        testClassification(trainingData, testData, categoricalFeaturesInfo);
 
         // regression using RandomForest
         System.out.println("\nRunning example of regression using RandomForest\n");
