@@ -34,6 +34,7 @@ object Titanic {
     val testData: JavaRDD[LabeledPoint] = splits(1)
 
     val categoricalFeaturesInfo: java.util.HashMap[Integer, Integer] = new java.util.HashMap[Integer, Integer]
+    categoricalFeaturesInfo.put(0, 2) // feature 0 is binary (taking values 0 or 1)
 
     System.out.println("\nRunning classification using RandomForest\n")
     JavaRandomForest.classifyAndTest(trainingData, testData, categoricalFeaturesInfo)
