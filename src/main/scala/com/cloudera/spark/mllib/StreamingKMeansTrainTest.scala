@@ -48,9 +48,9 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   * Anytime you add text files to `testDir`, you'll see predicted labels using the current model.
   *
   */
-object StreamingKMeans {
+object StreamingKMeansTrainTest {
 
-  // Usage: StreamingKMeansExample <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
+  // Usage: StreamingKMeansTrainTest <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
   def main(args: Array[String]) {
 
     var trainingDir = "trainingDir"
@@ -95,8 +95,7 @@ object StreamingKMeans {
 
     // train and print the model
     model.trainOn(trainingData) // train the model
-    val modelStr = model.latestModel().clusterCenters.toString
-    println(s"----- $modelStr")
+    model.latestModel().clusterCenters.foreach(println)
 
     // parameter : scala.Tuple2[K, org.apache.spark.mllib.linalg.Vector]
     // returns   : org.apache.spark.streaming.dstream.DStream[scala.Tuple2[K, scala.Int]]
