@@ -75,6 +75,7 @@ object StreamingKMeansTrainTest {
       numDimensions = args(4).toInt
     }
 
+    // create StreamingContext
     val conf = new SparkConf().setMaster("local").setAppName("StreamingKMeansExample")
     SparkConfUtil.setConf(conf)
     val ssc = new StreamingContext(conf, Seconds(batchDuration))
