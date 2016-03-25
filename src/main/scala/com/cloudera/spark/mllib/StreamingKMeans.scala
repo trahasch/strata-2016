@@ -41,7 +41,7 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   *   StreamingKMeans <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
   *
   * To run on your local machine using the two directories `trainingDir` and `testDir`,
-  * with updates every 5 seconds, 2 dimensions per data point, and 3 clusters, call:
+  * with updates every 15 seconds, 2 dimensions per data point, and 3 clusters, call:
   *    $ bin/run-example mllib.StreamingKMeansExample trainingDir testDir 5 3 2
   *
   * As you add text files to `trainingDir` the clusters will continuously update.
@@ -55,7 +55,7 @@ object StreamingKMeans {
 
     var trainingDir = "trainingDir"
     var testDir = "testDir"
-    var batchDuration : Long = 5
+    var batchDuration : Long = 15 // in seconds
     var numClusters = 3
     var numDimensions = 3
 
@@ -76,10 +76,14 @@ object StreamingKMeans {
     }
 
     val conf = new SparkConf().setMaster("local").setAppName("StreamingKMeansExample")
+    SparkConfUtil.setConf(conf)
     val ssc = new StreamingContext(conf, Seconds(batchDuration))
 
     // train the model on this data
     val trainingData = ssc.textFileStream(trainingDir).map(Vectors.parse)
+
+    // print training data
+    trainingData.print(5)
 
     // test the model on this data
     val testData = ssc.textFileStream(testDir).map(LabeledPoint.parse)
@@ -89,7 +93,10 @@ object StreamingKMeans {
       .setDecayFactor(1.0)
       .setRandomCenters(numDimensions, 0.0)
 
+    // train and print the model
     model.trainOn(trainingData) // train the model
+    val modelStr = model.latestModel().clusterCenters.toString
+    println(s"----- $modelStr")
 
     // parameter : scala.Tuple2[K, org.apache.spark.mllib.linalg.Vector]
     // returns   : org.apache.spark.streaming.dstream.DStream[scala.Tuple2[K, scala.Int]]

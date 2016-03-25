@@ -7,7 +7,7 @@ import org.apache.spark.SparkConf
  */
 object SparkConfUtil {
 
-  val isLocal = true;
+  private val isLocal = true;
 
   def setConf(conf: SparkConf): Unit = {
 
