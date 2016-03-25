@@ -87,6 +87,7 @@ object StreamingKMeansTrainTest {
 
     // test the model on this data
     val testData = ssc.textFileStream(testDir).map(LabeledPoint.parse)
+    testData.print(5)
 
     val model = new StreamingKMeans()
       .setK(numClusters)
