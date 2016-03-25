@@ -38,7 +38,7 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   * Where y is some identifier. n must be the same for train and test.
   *
   * Usage:
-  *   StreamingKMeansExample <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
+  *   StreamingKMeans <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
   *
   * To run on your local machine using the two directories `trainingDir` and `testDir`,
   * with updates every 5 seconds, 2 dimensions per data point, and 3 clusters, call:
@@ -48,12 +48,13 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
   * Anytime you add text files to `testDir`, you'll see predicted labels using the current model.
   *
   */
-object StreamingKMeansExample {
+object StreamingKMeans {
 
+  // Usage: StreamingKMeansExample <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
   def main(args: Array[String]) {
 
-    var trainingDir = "train"
-    var testDir = "test"
+    var trainingDir = "trainingDir"
+    var testDir = "testDir"
     var batchDuration : Long = 5
     var numClusters = 3
     var numDimensions = 3
@@ -74,17 +75,13 @@ object StreamingKMeansExample {
       numDimensions = args(4).toInt
     }
 
-    if (args.length != 5) {
-      System.err.println(
-        "Usage: StreamingKMeansExample " +
-          "<trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>")
-      System.exit(1)
-    }
-
     val conf = new SparkConf().setMaster("local").setAppName("StreamingKMeansExample")
     val ssc = new StreamingContext(conf, Seconds(batchDuration))
 
+    // train the model on this data
     val trainingData = ssc.textFileStream(trainingDir).map(Vectors.parse)
+
+    // test the model on this data
     val testData = ssc.textFileStream(testDir).map(LabeledPoint.parse)
 
     val model = new StreamingKMeans()
@@ -92,7 +89,10 @@ object StreamingKMeansExample {
       .setDecayFactor(1.0)
       .setRandomCenters(numDimensions, 0.0)
 
-    model.trainOn(trainingData)
+    model.trainOn(trainingData) // train the model
+
+    // parameter : scala.Tuple2[K, org.apache.spark.mllib.linalg.Vector]
+    // returns   : org.apache.spark.streaming.dstream.DStream[scala.Tuple2[K, scala.Int]]
     model.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
 
     ssc.start()
