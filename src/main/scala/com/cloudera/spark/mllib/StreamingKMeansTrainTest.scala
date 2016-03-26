@@ -95,9 +95,8 @@ object StreamingKMeansTrainTest {
       .setDecayFactor(1.0)
       .setRandomCenters(numDimensions, 0.0)
 
-    // train and print the model
+    // Update the clustering model by training on batches of data from a DStream
     model.trainOn(trainingData) // train the model
-    model.latestModel().clusterCenters.foreach(println)
 
     // parameter : scala.Tuple2[K, org.apache.spark.mllib.linalg.Vector]
     // returns   : org.apache.spark.streaming.dstream.DStream[scala.Tuple2[K, scala.Int]]
