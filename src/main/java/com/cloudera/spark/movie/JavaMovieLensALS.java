@@ -103,14 +103,27 @@ public final class JavaMovieLensALS {
         MatrixFactorizationModel model = als.run(training);
 
         // print the user features
-        JavaRDD rdd = model.userFeatures().toJavaRDD();
-        List<Tuple2<Integer, double[]>> ll = rdd.collect();
+        JavaRDD userFeaturesRDD = model.userFeatures().toJavaRDD();
+        List<Tuple2<Integer, double[]>> ll = userFeaturesRDD.collect();
 
+        System.out.println("Printing User Features");
         for (Tuple2<Integer, double[]> t : ll) {
-            String str = " ";
+            String str = "";
             for (double d : t._2)
                 str += d + " ";
-            System.out.println(t._1 + str);
+            System.out.println(t._1 + " : " + str);
+        }
+
+        // print the product features
+        JavaRDD productFeaturesRDD = model.productFeatures().toJavaRDD();
+        ll = productFeaturesRDD.collect();
+
+        System.out.println("\n\nPrinting Product Features");
+        for (Tuple2<Integer, double[]> t : ll) {
+            String str = "";
+            for (double d : t._2)
+                str += d + " ";
+            System.out.println(t._1 + " : " + str);
         }
 
         // compute RMSE
