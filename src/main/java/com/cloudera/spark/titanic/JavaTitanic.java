@@ -1,15 +1,12 @@
 package com.cloudera.spark.titanic;
 
-import com.cloudera.spark.dataset.DatasetMovieLens;
 import com.cloudera.spark.dataset.DatasetTitanic;
 import com.cloudera.spark.mllib.SparkConfUtil;
 import com.cloudera.spark.randomforest.JavaRandomForest;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
-import org.apache.spark.ml.recommendation.ALSModel;
 import org.apache.spark.mllib.regression.LabeledPoint;
-import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.SQLContext;
 
 import java.util.HashMap;
@@ -23,7 +20,7 @@ public class JavaTitanic {
     public static void main(String[] args) {
 
         String inputFile = "data/titanic/train.csv";
-        if (args.length >= 2) {
+        if (args.length > 0) {
             inputFile = args[0];
         }
 
