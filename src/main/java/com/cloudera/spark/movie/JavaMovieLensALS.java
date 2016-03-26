@@ -32,6 +32,8 @@ import org.apache.spark.mllib.recommendation.MatrixFactorizationModel;
 import org.apache.spark.mllib.recommendation.Rating;
 import scala.Tuple2;
 
+import java.util.List;
+
 // Usage: JavaMovieLensALS <input_file> <rank> <num_iterations> [<lambda>]
 public final class JavaMovieLensALS {
 
@@ -99,6 +101,17 @@ public final class JavaMovieLensALS {
         // train
         ALS als = new ALS().setRank(rank).setIterations(iterations).setLambda(lambda);
         MatrixFactorizationModel model = als.run(training);
+
+        // print the user features
+        JavaRDD rdd = model.userFeatures().toJavaRDD();
+        List<Tuple2<Integer, double[]>> ll = rdd.collect();
+
+        for (Tuple2<Integer, double[]> t : ll) {
+            String str = "";
+            for (double d : t._2)
+                str += d + " ";
+            System.out.println(t._1 + " " + str);
+        }
 
         // compute RMSE
         double rmse = computeRmse(model, test);
