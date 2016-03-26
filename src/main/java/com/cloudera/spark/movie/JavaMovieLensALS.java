@@ -41,9 +41,9 @@ public final class JavaMovieLensALS {
 
         // input parameters
         String inputFile = "data/movielens_small";
-        int rank = 3;
+        int rank = 10;
         int iterations = 10;
-        double lambda = 1;
+        double lambda = 0.01;
 
         if (args.length > 0) {
             inputFile = args[0];
@@ -107,10 +107,10 @@ public final class JavaMovieLensALS {
         List<Tuple2<Integer, double[]>> ll = rdd.collect();
 
         for (Tuple2<Integer, double[]> t : ll) {
-            String str = "";
+            String str = " ";
             for (double d : t._2)
                 str += d + " ";
-            System.out.println(t._1 + " " + str);
+            System.out.println(t._1 + str);
         }
 
         // compute RMSE
