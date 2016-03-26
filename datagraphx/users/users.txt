@@ -1,0 +1,9 @@
+1,AlbertEinstein,Albert Einstein
+2,IsaacNewton,Isaac Newton
+3,MarieCurie,Marie Curie
+4,CharlesDarwin,Charles Darwin
+6,Aristotle,Aristotle
+7,Archimedes,Archimedes
+8,JamesMaxwell,James Maxwell
+9,MaxBorn,Max Born
+10,CarlSagan,Carl Sagan
