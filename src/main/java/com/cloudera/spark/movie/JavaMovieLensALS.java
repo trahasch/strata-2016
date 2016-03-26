@@ -66,7 +66,6 @@ public final class JavaMovieLensALS {
         ratings.cache();
 
         // count
-        long numRatings = ratings.count();
         long numUsers = ratings.map(new Function<Rating, Integer>() {
             @Override
             public Integer call(Rating r) {
@@ -79,8 +78,9 @@ public final class JavaMovieLensALS {
                 return r.product();
             }
         }).distinct().count();
+        long numRatings = ratings.count();
 
-        System.out.println("Num Ratings : "+numRatings+" Num Users : "+numUsers+" Num Movies : "+numMovies);
+        System.out.println("Num Distinct Users : "+numUsers+" Num Distinct Movies : "+numMovies+" Total Num Ratings : "+numRatings);
 
         // split into training and test
         double[] weights = {.8, .2};

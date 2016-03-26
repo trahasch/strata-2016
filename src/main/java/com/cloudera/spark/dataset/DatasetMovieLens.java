@@ -24,6 +24,8 @@ public class DatasetMovieLens {
             @Override
             public Rating call(String s) throws Exception {
                 String[] arr = s.split("::");
+
+                // user::movie::rating
                 return new Rating(Integer.parseInt(arr[0]), Integer.parseInt(arr[1]), Double.parseDouble(arr[2]));
             }
         });
