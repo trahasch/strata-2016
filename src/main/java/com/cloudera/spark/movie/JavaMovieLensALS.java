@@ -32,24 +32,27 @@ import org.apache.spark.mllib.recommendation.MatrixFactorizationModel;
 import org.apache.spark.mllib.recommendation.Rating;
 import scala.Tuple2;
 
+// Usage: JavaMovieLensALS <input_file> <rank> <num_iterations> [<lambda>]
 public final class JavaMovieLensALS {
 
     public static void main(String[] args) {
 
-        // usage
-        if (args.length < 3) {
-            System.err.println(
-                    "Usage: JavaMovieLensALS <input_file> <rank> <num_iterations> [<lambda>]");
-            System.exit(1);
-        }
-
         // input parameters
-        String inputFile = args[0];
-        int rank = Integer.parseInt(args[1]);
-        int iterations = Integer.parseInt(args[2]);
+        String inputFile = "data/movielens_small";
+        int rank = 3;
+        int iterations = 10;
         double lambda = 1;
 
-        if (args.length >= 4) {
+        if (args.length > 0) {
+            inputFile = args[0];
+        }
+        if (args.length > 1) {
+            rank = Integer.parseInt(args[1]);
+        }
+        if (args.length > 2) {
+            iterations = Integer.parseInt(args[2]);
+        }
+        if (args.length > 3) {
             lambda = Double.parseDouble(args[3]);
         }
 
