@@ -19,15 +19,12 @@ object WikipediaPageRankFormat2 {
     val rawLinks:RDD[String] = sc.textFile("datagraphx/wikipediaV2/links-simple-sorted-top100.txt");
     val rawVertex:RDD[String] = sc.textFile("datagraphx/wikipediaV2/titles-sorted-top500.txt");
 
-    println(rawLinks.first())
-
     //Create the edge RDD
     val edges = rawLinks.flatMap(line => {
       val Array(key, values) = line.split(":",2)
       for(value <- values.trim.split("""\s+"""))
         yield (Edge(key.toLong, value.trim.toLong, 0))
     })
-    edges.collect
 
     val numberOfEdges = edges.count()
     println("Number of edges:"+ numberOfEdges)
@@ -48,7 +45,8 @@ object WikipediaPageRankFormat2 {
     //Run page rank
     val wikiGraph = graph.pageRank(0.01).cache()
 
-    wikiGraph.vertices.take(5).foreach(println(_))
+    // print the vertex ids and their page ranks of the first 20 vertices
+    wikiGraph.vertices.takeOrdered(20).foreach(println(_))
 
   }
 
