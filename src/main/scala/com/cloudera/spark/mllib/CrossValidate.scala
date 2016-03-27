@@ -29,19 +29,6 @@ import org.apache.spark.ml.tuning.{CrossValidator, ParamGridBuilder}
 import org.apache.spark.mllib.linalg.Vector
 import org.apache.spark.sql.{Row, SQLContext}
 
-/**
-  * A simple example demonstrating model selection using CrossValidator.
-  * This example also demonstrates how Pipelines are Estimators.
-  *
-  * This example uses the [[LabeledDocument]] and [[Document]] case classes from
-  * [[SimpleTextClassificationPipeline]].
-  *
-  * Run with
-  * {{{
-  * bin/run-example ml.CrossValidatorExample
-  * }}}
-  */
-
 @BeanInfo
 case class LabeledDocument(id: Long, text: String, label: Double)
 
