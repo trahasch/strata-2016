@@ -8,7 +8,9 @@ Installation Requirements:
 		* https://www.jetbrains.com/help/idea/2016.1/creating-and-running-your-scala-application.html 
 	* ScalaIDE for Eclipse
 		* Download from http://scala-ide.org/download/sdk.html 
-2. 	Apache Zeppelin
+2. Maven
+	* https://maven.apache.org/install.html
+3. 	Apache Zeppelin
 
    	* Download source from https://zeppelin.incubator.apache.org/download.html
    	
@@ -41,11 +43,10 @@ Installation Requirements:
 		```
 		localhost:8080
 		```	
-3. Maven
-	* https://maven.apache.org/install.html 
+
 4. Git (Nice to have)
 	* https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 5. Tutorial code & data
 	* Download or ```git clone``` the from https://github.com/jayantshekhar/strata-2016 (You are here!!)
-6. Apache Spark
+
 
