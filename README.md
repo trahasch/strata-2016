@@ -48,5 +48,7 @@ Installation Requirements:
 	* https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 5. Tutorial code & data
 	* Download or ```git clone``` the from https://github.com/jayantshekhar/strata-2016 (You are here!!)
+6. Build with 'mvn package'
+7. Import into IntelliJ/ScalaIDE for Eclipse as a maven project
 
 
