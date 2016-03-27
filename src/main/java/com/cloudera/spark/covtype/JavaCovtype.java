@@ -42,14 +42,12 @@ import java.util.List;
 
 public class JavaCovtype {
 
-
+    // Usage: JavaCovtype <input_file>
     public static void main(String[] args) {
-        if (args.length < 1) {
-            System.err.println(
-                    "Usage: JavaCovtype <input_file>");
-            System.exit(1);
+        String inputFile = "data/covtype";
+        if (args.length > 0) {
+            inputFile = args[0];
         }
-        String inputFile = args[0];
 
         SparkConf sparkConf = new SparkConf().setAppName("JavaCovtype");
         SparkConfUtil.setConf(sparkConf);
