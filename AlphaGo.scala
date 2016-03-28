@@ -9,7 +9,8 @@ object AlphaGo {
 	.setMaster("local") // could be "local[4]" for 4 threads
 	.setAppName("Chapter 9")
 	.set("spark.logConf", "false") //"true")
-	val sc = new SparkContext(conf) // ("local","Chapter 9") if using directly
+	val sc = new SparkContext(conf) // ("local","AlphaGo") if using directly
+  sc.setLogLevel("WARN") // ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 	println(s"Running Spark Version ${sc.version}")
 	//
 	val sqlContext = new org.apache.spark.sql.SQLContext(sc)
@@ -67,5 +68,8 @@ object AlphaGo {
   // max retweets
   val topRT = iDeg.join(rtGraph.vertices).sortBy(_._2._1,false).take(3).foreach(println)
   val topRT1 = oDeg.join(rtGraph.vertices).sortBy(_._2._1,false).take(3).foreach(println)
+  //
+  println("** That's All Folks ! **")
+  println("** Done **")
   }
 }

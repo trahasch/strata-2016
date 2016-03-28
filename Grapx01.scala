@@ -10,9 +10,10 @@ def main(args: Array[String]) {
 	println(new java.io.File( "." ).getCanonicalPath)
 	val conf = new SparkConf(false) // skip loading external settings
 	.setMaster("local") // could be "local[4]" for 4 threads
-	.setAppName("Chapter 9")
+	.setAppName("GraphX-01")
 	.set("spark.logConf", "true")
-	val sc = new SparkContext(conf) // ("local","Chapter 9") if using directly
+	val sc = new SparkContext(conf) // ("local","GraphX-01") if using directly
+  sc.setLogLevel("WARN") // ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 	println(s"Running Spark Version ${sc.version}")
 	//
 	val defaultPerson = Person("NA",0)
