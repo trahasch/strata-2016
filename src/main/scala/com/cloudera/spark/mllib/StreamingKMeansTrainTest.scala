@@ -70,8 +70,8 @@ object StreamingKMeansTrainTest {
   // Usage: StreamingKMeansTrainTest <trainingDir> <testDir> <batchDuration> <numClusters> <numDimensions>
   def main(args: Array[String]) {
 
-    var trainingDir = "trainingDir"
-    var testDir = "testDir"
+    var trainingDir = "streamingTrainDir"
+    var testDir = "streamingTestDir"
     var batchDuration : Long = 15 // in seconds
     var numClusters = 3
     var numDimensions = 3
@@ -118,6 +118,7 @@ object StreamingKMeansTrainTest {
     // parameter : scala.Tuple2[K, org.apache.spark.mllib.linalg.Vector]
     // returns   : org.apache.spark.streaming.dstream.DStream[scala.Tuple2[K, scala.Int]]
     model.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
+    //model.predictOn(testData.map(lp => lp.features)).print()
 
     ssc.start()
     ssc.awaitTermination()
