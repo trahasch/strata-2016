@@ -1,5 +1,4 @@
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.graphx._
 
 object AlphaGo {

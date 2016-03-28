@@ -1,7 +1,5 @@
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.graphx._
-import org.apache.spark.rdd.RDD
 //
 object Grapx01 {
 	//def getCurrentDirectory = new java.io.File( "." ).getCanonicalPath
