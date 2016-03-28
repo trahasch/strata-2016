@@ -41,6 +41,7 @@ import org.apache.spark.ml.evaluation.{RegressionEvaluator}
 import org.apache.spark.ml.regression.{LinearRegression}
 import org.apache.spark.{SparkContext, SparkConf}
 import org.apache.spark.sql._
+import org.apache.spark.sql.functions._
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.mllib.evaluation.RegressionMetrics
 
@@ -118,7 +119,8 @@ object LinearRegressionWithEncoding {
   val model = tvs.fit(training)
 
 
-  val holdout = model.transform(test).select("prediction","price")
+  //val holdout = model.transform(test).select("prediction","price")
+   val holdout = model.transform(test).select("prediction", "price").orderBy(abs(col("prediction")-col("price")))
   val rm = new RegressionMetrics(holdout.rdd.map(x => (x(0).asInstanceOf[Double], x(1).asInstanceOf[Double])))
  }
 }
