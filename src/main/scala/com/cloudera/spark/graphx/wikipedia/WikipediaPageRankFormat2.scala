@@ -47,10 +47,10 @@ object WikipediaPageRankFormat2 {
     println("Number of edges:"+ numberOfEdges)
 
     //Create the vertex RDD
-    val vertices = rawVertex.zipWithIndex().map({ row =>
+    val vertices = rawVertex.zipWithIndex().map({ row =>  // ((a,0),(b,1),(c,2))
       val nodeName = row._1
       val nodeIndex = row._2
-      (nodeIndex.toLong,nodeName)
+      (nodeIndex.toLong,nodeName)                         // ((0,a),(1,b),(2,c))
     });
 
     val numberOfVertices = vertices.count()
@@ -60,7 +60,7 @@ object WikipediaPageRankFormat2 {
     val graph = Graph(vertices, edges, "").cache()
 
     //Run page rank
-    val wikiGraph = graph.pageRank(0.01).cache()
+    val wikiGraph = graph.pageRank(0.01).cache() // tolerance required for convergence
 
     // print the vertex ids and their page ranks of the first 20 vertices
     wikiGraph.vertices.takeOrdered(20).foreach(println(_))
