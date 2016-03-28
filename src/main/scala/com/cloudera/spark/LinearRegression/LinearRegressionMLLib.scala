@@ -58,7 +58,7 @@ object LinearRegressionMLLib {
 
     val sc = new SparkContext(sparkConf)
 
-    val data = sc.textFile("/Users/vsingh/MR/strata/datasets/housing/housing.regression")
+    val data = sc.textFile(args(0))
 
     val parsedData = data.map { line =>
       val parts = line.split(',')
