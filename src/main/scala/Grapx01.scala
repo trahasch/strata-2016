@@ -10,7 +10,9 @@ def main(args: Array[String]) {
 	.setMaster("local") // could be "local[4]" for 4 threads
 	.setAppName("GraphX-01")
 	.set("spark.logConf", "true")
-	val sc = new SparkContext(conf) // ("local","GraphX-01") if using directly
+  com.cloudera.spark.mllib.SparkConfUtil.setConf(conf)
+  
+  val sc = new SparkContext(conf) // ("local","GraphX-01") if using directly
   sc.setLogLevel("WARN") // ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 	println(s"Running Spark Version ${sc.version}")
 	//
