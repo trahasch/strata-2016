@@ -1,5 +1,4 @@
-import org.apache.spark.SparkContext
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.graphx._
 
 object AlphaGo {
@@ -9,6 +8,9 @@ object AlphaGo {
 	.setMaster("local") // could be "local[4]" for 4 threads
 	.setAppName("Chapter 9")
 	.set("spark.logConf", "false") //"true")
+
+    com.cloudera.spark.mllib.SparkConfUtil.setConf(conf)
+
 	val sc = new SparkContext(conf) // ("local","AlphaGo") if using directly
   sc.setLogLevel("WARN") // ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 	println(s"Running Spark Version ${sc.version}")
