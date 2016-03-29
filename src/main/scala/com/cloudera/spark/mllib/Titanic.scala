@@ -19,7 +19,7 @@ package com.cloudera.spark.mllib
 
 import com.cloudera.spark.dataset.DatasetTitanic
 import com.cloudera.spark.randomforest.JavaRandomForest
-import org.apache.spark.SparkConf
+import org.apache.spark.{SparkConf, SparkContext}
 import org.apache.spark.api.java.{JavaRDD, JavaSparkContext}
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.sql.{DataFrame, SQLContext}
@@ -32,15 +32,18 @@ object Titanic {
   // Usage: Titanic <input_file>
   def main(args: Array[String]) {
 
+    // parameters
     var inputFile: String = "data/titanic/train.csv"
     if (args.length > 0) {
       inputFile = args(0)
     }
 
+    // create SparkConf
     val sparkConf: SparkConf = new SparkConf().setAppName("JavaTitanic")
     SparkConfUtil.setConf(sparkConf)
 
-    val sc: JavaSparkContext = new JavaSparkContext(sparkConf)
+    //
+    val sc: SparkContext = new SparkContext(sparkConf)
     val sqlContext: SQLContext = new SQLContext(sc)
     val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
 

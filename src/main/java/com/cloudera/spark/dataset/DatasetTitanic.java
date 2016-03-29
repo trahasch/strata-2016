@@ -43,7 +43,6 @@ public class DatasetTitanic {
 
         // create dataframe from input file
         DataFrame df = sqlContext.load("com.databricks.spark.csv", options);
-        df.printSchema();
 
         return df;
     }
