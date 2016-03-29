@@ -17,9 +17,14 @@
 
 package com.cloudera.spark.mllib.randomdatageneration
 
+import java.io.File
+
 import com.cloudera.spark.mllib.SparkConfUtil
+import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.random.RandomRDDs
 import org.apache.spark.{SparkConf, SparkContext}
+
+import scala.util.Try
 
 /**
  * Created by jayant
@@ -42,11 +47,39 @@ object Random {
     val sc: SparkContext = new SparkContext(sparkConf)
 
     val normalRDD = RandomRDDs.normalRDD(sc, 1000, 10)
-    val temp = normalRDD.collect();
-    println(temp.mkString("\n"))
+
+    val rdd = RandomRDDs.normalVectorRDD(sc, 100, 3, 1)
+
+    // clean the directories
+    FileUtils.cleanDirectory(new File("streamingTrainDir"))
+    FileUtils.cleanDirectory(new File("streamingTestDir"))
+    FileUtils.cleanDirectory(new File("streamingDataDir"))
+
+    var idx = 1;
+    val datadir = "streamingDataDir/";
+    while (true) {
+
+      // generate training data
+      val trainrdd = RandomRDDs.normalVectorRDD(sc, 100, 3, 1)
+      trainrdd.saveAsTextFile(datadir+idx)
+      mv(datadir+idx+"/part-00000", "streamingTrainDir/"+idx)
+
+      idx += 1
+      Thread.sleep(15000)
+
+      // generate test data
+      val rdd = RandomRDDs.normalVectorRDD(sc, 100, 3, 1)
+      rdd.saveAsTextFile(datadir+idx)
+      mv(datadir+idx+"/part-00000", "streamingTestDir/"+idx)
+
+      idx += 1
+      Thread.sleep(15000)
+    }
 
     sc.stop()
 
   }
 
+  def mv(oldName: String, newName: String) =
+    Try(new File(oldName).renameTo(new File(newName))).getOrElse(false)
 }
