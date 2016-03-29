@@ -51,9 +51,12 @@ object Random {
     val rdd = RandomRDDs.normalVectorRDD(sc, 100, 3, 1)
 
     // clean the directories
-    FileUtils.cleanDirectory(new File("streamingTrainDir"))
-    FileUtils.cleanDirectory(new File("streamingTestDir"))
-    FileUtils.cleanDirectory(new File("streamingDataDir"))
+    FileUtils.deleteDirectory(new File("streamingTrainDir"))
+    mkdir("streamingTrainDir")
+    FileUtils.deleteDirectory(new File("streamingTestDir"))
+    mkdir("streamingTestDir")
+    FileUtils.deleteDirectory(new File("streamingDataDir"))
+    mkdir("streamingDataDir")
 
     var idx = 1;
     val datadir = "streamingDataDir/";
@@ -78,6 +81,11 @@ object Random {
 
     sc.stop()
 
+  }
+
+  def mkdir(name : String): Unit = {
+    val dir = new File(name);
+    dir.mkdir()
   }
 
   def mv(oldName: String, newName: String) =
