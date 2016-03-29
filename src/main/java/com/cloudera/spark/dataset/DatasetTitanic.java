@@ -51,6 +51,7 @@ public class DatasetTitanic {
     public static JavaRDD<LabeledPoint> createLabeledPointsRDD(JavaSparkContext ctx, SQLContext sqlContext, String inputFile) {
 
         DataFrame df = createDF(sqlContext, inputFile);
+        df.printSchema();
 
         // convert dataframe to an RDD of Vectors
         JavaRDD<LabeledPoint> rdd = df.toJavaRDD().map(new Function<Row, LabeledPoint>() {

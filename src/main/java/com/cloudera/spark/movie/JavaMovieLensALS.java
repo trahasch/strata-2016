@@ -178,7 +178,7 @@ public final class JavaMovieLensALS {
             }
         });
 
-        double rmse = errorRDD.mean();
+        double rmse = Math.sqrt(errorRDD.mean());
 
         return rmse;
     }

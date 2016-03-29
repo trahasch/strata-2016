@@ -47,11 +47,6 @@ object Titanic {
     val sqlContext: SQLContext = new SQLContext(sc)
 
     // read in the data
-    val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
-    // print the DataFrame schema
-    results.printSchema
-
-    // read in the data
     val data: JavaRDD[LabeledPoint] = DatasetTitanic.createLabeledPointsRDD(sc, sqlContext, inputFile)
 
     // split the data for train/test
