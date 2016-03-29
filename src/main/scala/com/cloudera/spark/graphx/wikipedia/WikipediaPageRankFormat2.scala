@@ -60,10 +60,10 @@ object WikipediaPageRankFormat2 {
     val graph = Graph(vertices, edges, "").cache()
 
     //Run page rank
-    val wikiGraph = graph.pageRank(0.01).cache() // tolerance required for convergence
+    val pageRank = graph.pageRank(0.01).vertices // tolerance required for convergence
 
     // print the vertex ids and their page ranks of the first 20 vertices
-    wikiGraph.vertices.takeOrdered(20).foreach(println(_))
+    pageRank.takeOrdered(20).foreach(println(_))
 
   }
 
