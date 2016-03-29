@@ -15,11 +15,10 @@
  * limitations under the License.
  */
 
-package com.cloudera.spark.mllib.randomdatageneration
+package com.cloudera.spark.mllib
 
 import java.io.File
 
-import com.cloudera.spark.mllib.SparkConfUtil
 import org.apache.commons.io.FileUtils
 import org.apache.spark.mllib.random.RandomRDDs
 import org.apache.spark.{SparkConf, SparkContext}
