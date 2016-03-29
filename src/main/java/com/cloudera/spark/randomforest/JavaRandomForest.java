@@ -46,13 +46,12 @@ public final class JavaRandomForest {
 
         Integer numTrees = 3;
         String featureSubsetStrategy = "auto"; // Let the algorithm choose.
-        String impurity = "gini";
         Integer maxDepth = 4;
         Integer maxBins = 32;
         Integer seed = 12345;
 
         final RandomForestModel model = RandomForest.trainClassifier(trainingData, numClasses,
-                categoricalFeaturesInfo, numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins,
+                categoricalFeaturesInfo, numTrees, featureSubsetStrategy, "gini", maxDepth, maxBins,
                 seed);
 
         // Evaluate model on test instances
@@ -82,13 +81,12 @@ public final class JavaRandomForest {
         // Train a RandomForest model.
         Integer numTrees = 3; // Use more in practice.
         String featureSubsetStrategy = "auto"; // Let the algorithm choose.
-        String impurity = "variance";
         Integer maxDepth = 4;
         Integer maxBins = 32;
         Integer seed = 12345;
 
         final RandomForestModel model = RandomForest.trainRegressor(trainingData,
-                categoricalFeaturesInfo, numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins,
+                categoricalFeaturesInfo, numTrees, featureSubsetStrategy, "variance", maxDepth, maxBins,
                 seed);
 
         // Evaluate model on test instances and compute test error
