@@ -61,6 +61,7 @@ object LinearRegressionWithEncoding {
   }
 
    val sparkConf = new SparkConf().setAppName("LinearRegressionWithEncoding")
+   com.cloudera.spark.mllib.SparkConfUtil.setConf(sparkConf)
 
    val sc = new SparkContext(sparkConf)
 

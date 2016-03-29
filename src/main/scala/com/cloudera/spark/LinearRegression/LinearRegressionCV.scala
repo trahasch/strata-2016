@@ -60,6 +60,7 @@ object LinearRegressionCV {
     }
 
     val sparkConf = new SparkConf().setAppName("LinearRegressionCV")
+    com.cloudera.spark.mllib.SparkConfUtil.setConf(sparkConf)
 
     val sc = new SparkContext(sparkConf)
 

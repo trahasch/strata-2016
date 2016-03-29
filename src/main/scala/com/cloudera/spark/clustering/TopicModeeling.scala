@@ -58,6 +58,7 @@ object TopicModelling {
     }
 
     val sparkConf = new SparkConf().setAppName("TopicModelling")
+    com.cloudera.spark.mllib.SparkConfUtil.setConf(sparkConf)
     val sc = new SparkContext(sparkConf)
 
     val numTopics: Int = 10
