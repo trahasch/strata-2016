@@ -42,14 +42,19 @@ object Titanic {
     val sparkConf: SparkConf = new SparkConf().setAppName("JavaTitanic")
     SparkConfUtil.setConf(sparkConf)
 
-    //
+    // create SparkContent
     val sc: SparkContext = new SparkContext(sparkConf)
     val sqlContext: SQLContext = new SQLContext(sc)
-    val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
 
+    // read in the data
+    val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
+    // print the DataFrame schema
     results.printSchema
 
+    // read in the data
     val data: JavaRDD[LabeledPoint] = DatasetTitanic.createLabeledPointsRDD(sc, sqlContext, inputFile)
+
+    // split the data for train/test
     val splits: Array[JavaRDD[LabeledPoint]] = data.randomSplit(Array[Double](0.7, 0.3))
     val trainingData: JavaRDD[LabeledPoint] = splits(0)
     val testData: JavaRDD[LabeledPoint] = splits(1)
@@ -57,12 +62,15 @@ object Titanic {
     val categoricalFeaturesInfo: java.util.HashMap[Integer, Integer] = new java.util.HashMap[Integer, Integer]
     categoricalFeaturesInfo.put(0, 2) // feature 0 is binary (taking values 0 or 1)
 
+    // classify with random forest
     System.out.println("\nRunning classification using RandomForest\n")
     JavaRandomForest.classifyAndTest(trainingData, testData, categoricalFeaturesInfo)
 
+    // regression with random forest
     System.out.println("\nRunning regression using RandomForest\n")
     JavaRandomForest.testRegression(trainingData, testData)
 
+    // stop the spark context
     sc.stop
   }
 }
