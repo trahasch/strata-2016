@@ -63,7 +63,7 @@ public class JavaFPGrowth {
             numPartition = Integer.parseInt(args[2]);
         }
 
-        SparkConf sparkConf = new SparkConf().setAppName("JavaFPGrowthExample");
+        SparkConf sparkConf = new SparkConf().setAppName("FPGrowth");
         SparkConfUtil.setConf(sparkConf);
         JavaSparkContext sc = new JavaSparkContext(sparkConf);
 
