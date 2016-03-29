@@ -48,16 +48,19 @@ import org.apache.spark.sql._
   *
   *
   */
-object TopicModelling {
+object TopicModeeling {
 
 	def main (args: Array[String]) {
 
-    if(args.length < 2) {
-      System.err.println(args.length)
-      System.err.println("Usage: TopicModelling <input data dir> <stopwords file location>")
+    var inputDir = "data/topicmodeling/newsgroup_20/"
+    var stopWordFile = "data/topicmodeling/stopwords.txt"
+
+    if(args.length > 1) {
+      inputDir = args(0)
+      stopWordFile = args(1)
     }
 
-    val sparkConf = new SparkConf().setAppName("TopicModelling")
+    val sparkConf = new SparkConf().setAppName("TopicModeeling")
     com.cloudera.spark.mllib.SparkConfUtil.setConf(sparkConf)
     val sc = new SparkContext(sparkConf)
 
@@ -69,7 +72,7 @@ object TopicModelling {
 
     import sqlContext.implicits._
 
-    val rawTextRDD = sc.wholeTextFiles(args(0)).map(_._2)
+    val rawTextRDD = sc.wholeTextFiles(inputDir).map(_._2)
     val docDF = rawTextRDD
                   .zipWithIndex.toDF("text", "docId")
     val tokens = new RegexTokenizer()
@@ -80,7 +83,7 @@ object TopicModelling {
                   .setOutputCol("words")
                   .transform(docDF)
 
-    val stopwords = sc.textFile(args(1)).collect
+    val stopwords = sc.textFile(stopWordFile).collect
     val filteredTokens = new StopWordsRemover()
                           .setStopWords(stopwords)
                           .setCaseSensitive(false)
