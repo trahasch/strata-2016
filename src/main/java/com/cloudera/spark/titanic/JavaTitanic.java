@@ -64,7 +64,7 @@ public class JavaTitanic {
 
         // regression using Random Forest
         System.out.println("\nRunning regression using RandomForest\n");
-        JavaRandomForest.testRegression(trainingData, testData);
+        JavaRandomForest.testRegression(trainingData, testData, categoricalFeaturesInfo);
 
         sc.stop();
 

@@ -59,8 +59,9 @@ object Titanic {
     val trainingData: JavaRDD[LabeledPoint] = splits(0)
     val testData: JavaRDD[LabeledPoint] = splits(1)
 
+    // provide details of categorical features
     val categoricalFeaturesInfo: java.util.HashMap[Integer, Integer] = new java.util.HashMap[Integer, Integer]
-    categoricalFeaturesInfo.put(0, 2) // feature 0 is binary (taking values 0 or 1)
+    categoricalFeaturesInfo.put(0, 2) // feature 0 (male/female) is binary (taking values 0 or 1)
 
     // classify with random forest
     System.out.println("\nRunning classification using RandomForest\n")
@@ -68,7 +69,7 @@ object Titanic {
 
     // regression with random forest
     System.out.println("\nRunning regression using RandomForest\n")
-    JavaRandomForest.testRegression(trainingData, testData)
+    JavaRandomForest.testRegression(trainingData, testData, categoricalFeaturesInfo)
 
     // stop the spark context
     sc.stop

@@ -36,15 +36,13 @@ import org.apache.spark.mllib.util.MLUtils;
 
 public final class JavaRandomForest {
 
+    // storing arity of categorical features. E.g., an entry (n -> k) indicates that
+    // feature n is categorical with k categories indexed from 0: {0, 1, ..., k-1}
     public static void classifyAndTest(JavaRDD<LabeledPoint> trainingData,
                                           JavaRDD<LabeledPoint> testData,
                                           HashMap<Integer, Integer> categoricalFeaturesInfo) {
         // Train a RandomForest model.
-        //  Empty categoricalFeaturesInfo indicates all features are continuous.
         Integer numClasses = 2;
-
-        // storing arity of categorical features. E.g., an entry (n -> k) indicates that
-        // feature n is categorical with k categories indexed from 0: {0, 1, ..., k-1}
 
         Integer numTrees = 3;
         String featureSubsetStrategy = "auto"; // Let the algorithm choose.
@@ -79,10 +77,9 @@ public final class JavaRandomForest {
     }
 
     public static void testRegression(JavaRDD<LabeledPoint> trainingData,
-                                       JavaRDD<LabeledPoint> testData) {
+                                       JavaRDD<LabeledPoint> testData,
+                                      HashMap<Integer, Integer> categoricalFeaturesInfo) {
         // Train a RandomForest model.
-        //  Empty categoricalFeaturesInfo indicates all features are continuous.
-        HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
         Integer numTrees = 3; // Use more in practice.
         String featureSubsetStrategy = "auto"; // Let the algorithm choose.
         String impurity = "variance";
@@ -142,7 +139,7 @@ public final class JavaRandomForest {
 
         // regression using RandomForest
         System.out.println("\nRunning regression using RandomForest\n");
-        testRegression(trainingData, testData);
+        testRegression(trainingData, testData, categoricalFeaturesInfo);
 
         sc.stop();
     }
