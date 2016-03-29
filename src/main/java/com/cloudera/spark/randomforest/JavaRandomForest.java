@@ -46,7 +46,7 @@ public final class JavaRandomForest {
         // storing arity of categorical features. E.g., an entry (n -> k) indicates that
         // feature n is categorical with k categories indexed from 0: {0, 1, ..., k-1}
 
-        Integer numTrees = 3; // Use more in practice.
+        Integer numTrees = 3;
         String featureSubsetStrategy = "auto"; // Let the algorithm choose.
         String impurity = "gini";
         Integer maxDepth = 4;
