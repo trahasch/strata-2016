@@ -54,9 +54,9 @@ object LinearRegressionCV {
 
   def main (args: Array[String]) {
 
-    if (args.length < 2) {
-      System.err.println(args.length)
-      System.err.println("Usage: TopicModelling <input data dir> <stopwords file location>")
+    var input = "data/housing/Housing.csv"
+    if (args.length > 0) {
+      input = args(0)
     }
 
     val sparkConf = new SparkConf().setAppName("LinearRegressionCV")
@@ -68,7 +68,7 @@ object LinearRegressionCV {
 
     import sqlContext.implicits._
 
-    val data = sc.textFile(args(0)).map(_.split(","))
+    val data = sc.textFile(input).map(_.split(","))
       .map( x => ( X(
         x(0), x(1).toDouble, x(2).toDouble, x(3).toDouble, x(4).toDouble, x(5).toDouble, x(6), x(7), x(8), x(9), x(10), x(11).toDouble, x(12) ))).toDF()
 
@@ -123,6 +123,7 @@ object LinearRegressionCV {
                   .transform(test)
                   .select("prediction", "price")
                   .orderBy(abs(col("prediction")-col("price")))
+    holdout.show
     val rm = new RegressionMetrics(holdout.rdd.map(x => (x(0).asInstanceOf[Double], x(1).asInstanceOf[Double])))
 
   }

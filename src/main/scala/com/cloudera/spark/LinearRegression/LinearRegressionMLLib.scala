@@ -43,11 +43,6 @@ import org.apache.spark.mllib.feature.StandardScaler
 
 object LinearRegressionMLLib {
 
-  case class X(
-                id: String ,price: Double, lotsize: Double, bedrooms: Double,
-                bathrms: Double,stories: Double, driveway: String,recroom: String,
-                fullbase: String, gashw: String, airco: String, garagepl: Double, prefarea: String)
-
   def main (args: Array[String]) {
 
     var input = "data/housing/housing.regression"
