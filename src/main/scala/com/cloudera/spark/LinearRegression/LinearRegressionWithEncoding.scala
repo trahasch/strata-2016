@@ -44,6 +44,7 @@ import org.apache.spark.sql._
 import org.apache.spark.sql.functions._
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.mllib.evaluation.RegressionMetrics
+import org.apache.spark.ml.feature.StandardScaler
 
 object LinearRegressionWithEncoding {
 
@@ -88,9 +89,10 @@ object LinearRegressionWithEncoding {
              "gashwVec","aircoVec", "prefareaVec"))
             .setOutputCol("features")
 
-  val lr = new LinearRegression()
+
+   val lr = new LinearRegression()
             .setLabelCol("price")
-            .setFeaturesCol("features")
+            .setFeaturesCol("scaledFeatures")
             .setMaxIter(1000)
             .setSolver("l-bfgs")
 

@@ -39,6 +39,7 @@ import org.apache.spark.mllib.regression.LinearRegressionModel
 import org.apache.spark.mllib.regression.LinearRegressionWithSGD
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.{SparkContext, SparkConf}
+import org.apache.spark.mllib.feature.StandardScaler
 
 object LinearRegressionMLLib {
 
@@ -61,14 +62,26 @@ object LinearRegressionMLLib {
     val data = sc.textFile(args(0))
 
     val parsedData = data.map { line =>
-      val parts = line.split(',')
-      LabeledPoint(parts(0).toDouble, Vectors.dense(parts(1).split(' ').map(_.toDouble)))
+       val parts = line.split(',')
+       val label = parts(0).toDouble
+       val features = parts(1).split(' ').map(_.toDouble)
+       LabeledPoint(label, Vectors.dense(features))
     }.cache()
 
-    val numIterations = 100
-    val stepSize = 0.00000001
+    val scaler = new StandardScaler(withMean = true, withStd = true).fit(parsedData.map(x => x.features))
 
-    val model = LinearRegressionWithSGD.train(parsedData, numIterations, stepSize)
+    val scaledData = parsedData.map(x =>
+        LabeledPoint(x.label,
+        scaler.transform(Vectors.dense(x.features.toArray))))
+
+    val numIterations = 100
+    val stepSize = 0.1
+
+    val algorithm = new LinearRegressionWithSGD()
+    algorithm.optimizer.setNumIterations(numIterations).setStepSize(stepSize)
+    val model = algorithm.run(scaledData)
+
+    scaledData.take(5).foreach{ x=> println(s"Predicted: ${model.predict(x.features)}, Label: ${x.label}")}
 
     val valuesAndPreds = parsedData.map { point =>
       val prediction = model.predict(point.features)
