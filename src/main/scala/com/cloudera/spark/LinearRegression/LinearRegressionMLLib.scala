@@ -59,7 +59,7 @@ object LinearRegressionMLLib {
 
     val sc = new SparkContext(sparkConf)
 
-    val data = sc.textFile(args(0))
+    val data = sc.textFile(input)
 
     val parsedData = data.map { line =>
        val parts = line.split(',')
