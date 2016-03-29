@@ -42,9 +42,9 @@ object Titanic {
 
     val sc: JavaSparkContext = new JavaSparkContext(sparkConf)
     val sqlContext: SQLContext = new SQLContext(sc)
-    //val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
+    val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
 
-    //results.printSchema
+    results.printSchema
 
     val data: JavaRDD[LabeledPoint] = DatasetTitanic.createLabeledPointsRDD(sc, sqlContext, inputFile)
     val splits: Array[JavaRDD[LabeledPoint]] = data.randomSplit(Array[Double](0.7, 0.3))
