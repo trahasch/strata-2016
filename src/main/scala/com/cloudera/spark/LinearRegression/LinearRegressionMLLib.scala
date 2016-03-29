@@ -50,9 +50,9 @@ object LinearRegressionMLLib {
 
   def main (args: Array[String]) {
 
-    if (args.length < 2) {
-      System.err.println(args.length)
-      System.err.println("Usage: TopicModelling <input data dir> <stopwords file location>")
+    var input = data/housing/housing.regression"
+    if (args.length > 0) {
+	input = args(0)
     }
 
     val sparkConf = new SparkConf().setAppName("LinearRegressionMLLib")
