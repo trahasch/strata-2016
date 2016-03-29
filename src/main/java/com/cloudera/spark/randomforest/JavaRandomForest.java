@@ -136,12 +136,12 @@ public final class JavaRandomForest {
         JavaRDD<LabeledPoint> testData = splits[1];
 
         // classification using RandomForest
-        System.out.println("\nRunning example of classification using RandomForest\n");
+        System.out.println("\nRunning classification using RandomForest\n");
         HashMap<Integer, Integer> categoricalFeaturesInfo = new HashMap<Integer, Integer>();
         classifyAndTest(trainingData, testData, categoricalFeaturesInfo);
 
         // regression using RandomForest
-        System.out.println("\nRunning example of regression using RandomForest\n");
+        System.out.println("\nRunning regression using RandomForest\n");
         testRegression(trainingData, testData);
 
         sc.stop();
