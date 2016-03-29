@@ -50,12 +50,13 @@ object LinearRegressionMLLib {
 
   def main (args: Array[String]) {
 
-    var input = data/housing/housing.regression"
+    var input = "data/housing/housing.regression"
     if (args.length > 0) {
 	input = args(0)
     }
 
     val sparkConf = new SparkConf().setAppName("LinearRegressionMLLib")
+    com.cloudera.spark.mllib.SparkConfUtil.setConf(sparkConf)
 
     val sc = new SparkContext(sparkConf)
 
@@ -74,10 +75,11 @@ object LinearRegressionMLLib {
         LabeledPoint(x.label,
         scaler.transform(Vectors.dense(x.features.toArray))))
 
-    val numIterations = 100
-    val stepSize = 0.1
+    val numIterations = 1000
+    val stepSize = 0.2
 
     val algorithm = new LinearRegressionWithSGD()
+    algorithm.setIntercept(true)
     algorithm.optimizer.setNumIterations(numIterations).setStepSize(stepSize)
     val model = algorithm.run(scaledData)
 
