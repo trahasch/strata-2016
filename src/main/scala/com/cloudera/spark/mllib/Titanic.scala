@@ -29,21 +29,22 @@ import org.apache.spark.sql.{DataFrame, SQLContext}
  */
 object Titanic {
 
+  // Usage: Titanic <input_file>
   def main(args: Array[String]) {
-    if (args.length < 1) {
-      System.err.println("Usage: Titanic <input_file>")
-      System.exit(1)
+
+    var inputFile: String = "data/titanic/train.csv"
+    if (args.length > 0) {
+      inputFile = args(0)
     }
 
-    val inputFile: String = args(0)
     val sparkConf: SparkConf = new SparkConf().setAppName("JavaTitanic")
     SparkConfUtil.setConf(sparkConf)
 
     val sc: JavaSparkContext = new JavaSparkContext(sparkConf)
     val sqlContext: SQLContext = new SQLContext(sc)
-    val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
+    //val results: DataFrame = DatasetTitanic.createDF(sqlContext, inputFile)
 
-    results.printSchema
+    //results.printSchema
 
     val data: JavaRDD[LabeledPoint] = DatasetTitanic.createLabeledPointsRDD(sc, sqlContext, inputFile)
     val splits: Array[JavaRDD[LabeledPoint]] = data.randomSplit(Array[Double](0.7, 0.3))
@@ -56,7 +57,7 @@ object Titanic {
     System.out.println("\nRunning classification using RandomForest\n")
     JavaRandomForest.classifyAndTest(trainingData, testData, categoricalFeaturesInfo)
 
-    System.out.println("\nRunning example of regression using RandomForest\n")
+    System.out.println("\nRunning regression using RandomForest\n")
     JavaRandomForest.testRegression(trainingData, testData)
 
     sc.stop
