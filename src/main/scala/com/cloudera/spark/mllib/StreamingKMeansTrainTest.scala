@@ -104,7 +104,7 @@ object StreamingKMeansTrainTest {
     trainingData.print(5)
 
     // test the model on this data
-    val testData = ssc.textFileStream(testDir).map(LabeledPoint.parse)
+    val testData = ssc.textFileStream(testDir).map(Vectors.parse)
     testData.print(5)
 
     val model = new StreamingKMeans()
@@ -115,10 +115,8 @@ object StreamingKMeansTrainTest {
     // Update the clustering model by training on batches of data from a DStream
     model.trainOn(trainingData) // train the model
 
-    // parameter : scala.Tuple2[K, org.apache.spark.mllib.linalg.Vector]
-    // returns   : org.apache.spark.streaming.dstream.DStream[scala.Tuple2[K, scala.Int]]
-    model.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
-    //model.predictOn(testData.map(lp => lp.features)).print()
+    // predict
+    model.predictOn(testData).print()
 
     ssc.start()
     ssc.awaitTermination()
