@@ -1,13 +1,9 @@
 Installation Requirements:
 --------------------------
-1.	Scala IDE - Either IntelliJ   OR   ScalaIDE for Eclipse are needed
-	* IntelliJ
-		* Download from https://www.jetbrains.com/idea/download/
-		* Add Scala Plugin
-		* Add Scala SDK : 2.10.4
-		* https://www.jetbrains.com/help/idea/2016.1/creating-and-running-your-scala-application.html 
-	* ScalaIDE for Eclipse
-		* Download from http://scala-ide.org/download/sdk.html 
+1.	ScalaIDE for Eclipse is needed
+
+	* Download from http://scala-ide.org/download/sdk.html
+	* For Projects imported into Eclipse set the Scala version to 2.10.6 under Project/Properties
 2. Maven
 	* https://maven.apache.org/install.html
 3. 	Apache Zeppelin
