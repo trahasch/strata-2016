@@ -1,5 +1,7 @@
-import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.SparkContext
+import org.apache.spark.SparkConf
 import org.apache.spark.graphx._
+import org.apache.spark.rdd.RDD
 //
 object Grapx01 {
 	//def getCurrentDirectory = new java.io.File( "." ).getCanonicalPath
@@ -10,9 +12,7 @@ def main(args: Array[String]) {
 	.setMaster("local") // could be "local[4]" for 4 threads
 	.setAppName("GraphX-01")
 	.set("spark.logConf", "true")
-  com.cloudera.spark.mllib.SparkConfUtil.setConf(conf)
-  
-  val sc = new SparkContext(conf) // ("local","GraphX-01") if using directly
+	val sc = new SparkContext(conf) // ("local","GraphX-01") if using directly
   sc.setLogLevel("WARN") // ALL, DEBUG, ERROR, FATAL, INFO, OFF, TRACE, WARN
 	println(s"Running Spark Version ${sc.version}")
 	//
