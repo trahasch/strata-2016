@@ -70,7 +70,7 @@ public class DatasetMovieLens {
         newdf.registerTempTable("ratings");
 
         // convert to proper types
-        DataFrame results = sqlContext.sql("SELECT cast(user as int) user, cast(movie as int) movie, cast(rating as int) rating FROM ratings");
+        DataFrame results = sqlContext.sql("SELECT cast(user as int) user, cast(movie as int) movie, cast(rating as double) rating FROM ratings");
         results.printSchema();
         results.show();
 
