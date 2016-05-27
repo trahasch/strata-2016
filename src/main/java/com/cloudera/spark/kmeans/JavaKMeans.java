@@ -37,16 +37,11 @@ import org.apache.spark.mllib.linalg.Vectors;
 public final class JavaKMeans {
 
     public static void main(String[] args) {
-        if (args.length < 3) {
-            System.err.println(
-                    "Usage: JavaKMeans <input_file> <k> <max_iterations> [<runs>]");
-            System.exit(1);
-        }
 
         // parse the input arguments
-        String inputFile = args[0];
-        int k = Integer.parseInt(args[1]);
-        int iterations = Integer.parseInt(args[2]);
+        String inputFile = "data/kmeans";
+        int k = 3;
+        int iterations = 10;
         int runs = 1;
 
         if (args.length >= 4) {
