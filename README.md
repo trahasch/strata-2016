@@ -3,7 +3,7 @@ Installation Requirements:
 1.	ScalaIDE for Eclipse is needed
 
 	* Download from http://scala-ide.org/download/sdk.html
-	* For Projects imported into Eclipse set the Scala version to 2.10.6 under Project/Properties
+	* For Projects imported into Eclipse set the Scala version to 2.10.6 under Project/Properties/Scala Compiler
 2. Maven
 	* https://maven.apache.org/install.html
 
