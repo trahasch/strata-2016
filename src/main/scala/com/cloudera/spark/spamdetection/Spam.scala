@@ -53,6 +53,8 @@ object Spark {
     val alldf = spamdf.unionAll(hamdf)
     alldf.show()
     
+    val Array(trainingData, testData) = alldf.randomSplit(Array(0.7, 0.3))
+    
     // Configure an ML pipeline, which consists of three stages: tokenizer, hashingTF, and lr.
     val tokenizer = new Tokenizer()
       .setInputCol("text")
@@ -68,9 +70,15 @@ object Spark {
     val pipeline = new Pipeline()
       .setStages(Array(tokenizer, hashingTF, lr))
     
-    val lrModel = pipeline.fit(alldf)
+    val lrModel = pipeline.fit(trainingData)
     println(lrModel.toString())
       
+    // Make predictions.
+    val predictions = lrModel.transform(testData)
+    
+    // display the predictions
+    predictions.select("file", "text", "label", "features", "prediction").show(5)
+
     sc.stop()
   }
 }
