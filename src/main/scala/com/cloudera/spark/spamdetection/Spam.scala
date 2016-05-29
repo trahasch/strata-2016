@@ -40,13 +40,13 @@ object Spark {
     import sqlContext.implicits._
 
     // read in the spam files
-    val spamrdd = sc.wholeTextFiles("data/titanic", 1)
-    val spamdf = spamrdd.map(d => SpamDocument(d._1, d._2, 0)).toDF()
+    val spamrdd = sc.wholeTextFiles("data/enron/spam", 1)
+    val spamdf = spamrdd.map(d => SpamDocument(d._1, d._2, 1)).toDF()
     spamdf.show()
     
     // read in the ham files
-    val hamrdd = sc.wholeTextFiles("data/titanic", 1)
-    val hamdf = hamrdd.map(d => SpamDocument(d._1, d._2, 1)).toDF()
+    val hamrdd = sc.wholeTextFiles("data/enron/ham", 1)
+    val hamdf = hamrdd.map(d => SpamDocument(d._1, d._2, 0)).toDF()
     hamdf.show()
     
     // all
