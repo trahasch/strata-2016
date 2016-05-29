@@ -8,6 +8,7 @@ import org.apache.spark.ml.feature.{HashingTF, Tokenizer}
 import org.apache.spark.sql.SQLContext
 import com.cloudera.spark.mllib.SparkConfUtil
 import scala.reflect.runtime.universe
+import org.apache.spark.ml.feature.StringIndexer
 
 
 object Spark {
@@ -37,6 +38,13 @@ object Spark {
     
     newdf.printSchema()
     
+    val churnedIndexer = new StringIndexer().setInputCol("churned").setOutputCol("label")
+    val dff_churn = churnedIndexer.fit(newdf).transform(newdf)
+    dff_churn.printSchema()
+    
+    val intlPlanIndexer = new StringIndexer().setInputCol("international_plan").setOutputCol("international_plan_indx")
+    val dff_intl = intlPlanIndexer.fit(dff_churn).transform(dff_churn)
+    dff_intl.printSchema()
     
   }
     
