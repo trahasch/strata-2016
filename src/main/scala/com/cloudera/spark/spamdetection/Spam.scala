@@ -39,6 +39,8 @@ object Spark {
     val sqlContext = new SQLContext(sc)
     import sqlContext.implicits._
 
+    // http://www.aueb.gr/users/ion/data/enron-spam/
+    
     // read in the spam files
     val spamrdd = sc.wholeTextFiles("data/enron/spam", 1)
     val spamdf = spamrdd.map(d => SpamDocument(d._1, d._2, 1)).toDF()
