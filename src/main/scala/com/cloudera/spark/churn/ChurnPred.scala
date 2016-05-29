@@ -9,6 +9,7 @@ import org.apache.spark.sql.SQLContext
 import com.cloudera.spark.mllib.SparkConfUtil
 import scala.reflect.runtime.universe
 import org.apache.spark.ml.feature.StringIndexer
+import org.apache.spark.ml.feature.VectorAssembler
 
 
 object Spark {
@@ -45,6 +46,14 @@ object Spark {
     val intlPlanIndexer = new StringIndexer().setInputCol("international_plan").setOutputCol("international_plan_indx")
     val dff_intl = intlPlanIndexer.fit(dff_churn).transform(dff_churn)
     dff_intl.printSchema()
+    
+    val assembler = new VectorAssembler()
+      .setInputCols(Array("account_length", "number_vmail_messages", "total_day_minutes"))
+      .setOutputCol("features")
+      
+    val output = assembler.transform(dff_intl)
+    
+    output.printSchema()
     
   }
     
