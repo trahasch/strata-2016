@@ -51,7 +51,8 @@ object Spark {
     
     // assembler
     val assembler = new VectorAssembler()
-      .setInputCols(Array("account_length", "number_vmail_messages", "total_day_minutes", "international_plan_indx"))
+      .setInputCols(Array("account_length", "international_plan_indx", "number_vmail_messages", "total_day_minutes",
+          "total_day_calls", "total_day_charge", "total_eve_minutes", "total_eve_calls", "total_night_calls", "total_intl_calls"))
       .setOutputCol("features")
     val dff_assembler = assembler.transform(dff_intl)
     dff_assembler.printSchema()
