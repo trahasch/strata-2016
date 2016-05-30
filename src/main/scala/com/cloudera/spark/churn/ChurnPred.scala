@@ -1,15 +1,14 @@
 package com.cloudera.spark.churn
 
-import scala.beans.BeanInfo
-import org.apache.spark.{SparkConf, SparkContext}
-import org.apache.spark.ml.Pipeline
-import org.apache.spark.ml.classification.LogisticRegression
-import org.apache.spark.ml.feature.{HashingTF, Tokenizer}
-import org.apache.spark.sql.SQLContext
-import com.cloudera.spark.mllib.SparkConfUtil
-import scala.reflect.runtime.universe
+import org.apache.spark.SparkConf
+import org.apache.spark.SparkContext
+import org.apache.spark.ml.classification.RandomForestClassifier
 import org.apache.spark.ml.feature.StringIndexer
 import org.apache.spark.ml.feature.VectorAssembler
+import org.apache.spark.sql.SQLContext
+
+import com.cloudera.spark.mllib.SparkConfUtil
+import org.apache.spark.ml.evaluation.BinaryClassificationEvaluator
 
 
 object Spark {
@@ -20,6 +19,7 @@ object Spark {
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
 
+    // create dataframe
     val df = sqlContext.read
       .format("com.databricks.spark.csv")
       .option("header", "false") // Use first line of all files as header
@@ -39,22 +39,47 @@ object Spark {
     
     newdf.printSchema()
     
+    // index churned column
     val churnedIndexer = new StringIndexer().setInputCol("churned").setOutputCol("label")
     val dff_churn = churnedIndexer.fit(newdf).transform(newdf)
     dff_churn.printSchema()
     
+    // index international plan column
     val intlPlanIndexer = new StringIndexer().setInputCol("international_plan").setOutputCol("international_plan_indx")
     val dff_intl = intlPlanIndexer.fit(dff_churn).transform(dff_churn)
     dff_intl.printSchema()
     
+    // assembler
     val assembler = new VectorAssembler()
-      .setInputCols(Array("account_length", "number_vmail_messages", "total_day_minutes"))
+      .setInputCols(Array("account_length", "number_vmail_messages", "total_day_minutes", "international_plan_indx"))
       .setOutputCol("features")
-      
-    val output = assembler.transform(dff_intl)
+    val dff_assembler = assembler.transform(dff_intl)
+    dff_assembler.printSchema()
     
-    output.printSchema()
+    // Split the data into training and test sets (30% held out for testing)
+    val Array(trainingData, testData) = dff_assembler.randomSplit(Array(0.7, 0.3))
+
+    // Train a RandomForest model.
+    val rf = new RandomForestClassifier()
+      .setLabelCol("label")
+      .setFeaturesCol("features")
+      .setNumTrees(10)
+     val rfmodel = rf.fit(trainingData)
     
+     // Make predictions.
+     val predictions = rfmodel.transform(testData)
+    
+     // Select example rows to display.
+     predictions.select("prediction", "label", "features").show(50)
+     
+     // Select (prediction, true label) and compute test error
+    val evaluator = new BinaryClassificationEvaluator()
+      .setMetricName("areaUnderROC")
+    val areaUnderROC = evaluator.evaluate(predictions)
+    println("areaUnderROC = " + areaUnderROC)
+
+    
+     println("Learned classification forest model:\n" + rfmodel.toDebugString)
   }
     
 }
