@@ -72,7 +72,7 @@ object Random {
 
       // generate test data
       val rdd = RandomRDDs.normalVectorRDD(sc, 100, 3, 1)
-      val lprdd = rdd.map { x => new LabeledPoint(0.0, x) }
+      val lprdd = rdd.map { x => new LabeledPoint((Math.random()*100).toInt % 3, x) }
       
       lprdd.saveAsTextFile(datadir+idx)
       mv(datadir+idx+"/part-00000", "streamingTestDir/"+idx)
