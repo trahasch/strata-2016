@@ -80,7 +80,7 @@ object StreamingKMeansTrainTest {
     trainingData.print(5)
 
     // test the model on this data
-    val testData = ssc.textFileStream(testDir).map(Vectors.parse)
+    val testData = ssc.textFileStream(testDir).map(LabeledPoint.parse)
     testData.print(5)
 
     val model = new StreamingKMeans()
@@ -91,8 +91,8 @@ object StreamingKMeansTrainTest {
     // Update the clustering model by training on batches of data from a DStream
     model.trainOn(trainingData) // train the model
 
-    // predict
-    model.predictOn(testData).print()
+    // predict on values
+    model.predictOnValues(testData.map(lp => (lp.label, lp.features))).print()
 
     ssc.start()
     ssc.awaitTermination()
