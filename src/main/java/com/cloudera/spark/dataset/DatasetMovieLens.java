@@ -56,6 +56,7 @@ public class DatasetMovieLens {
         HashMap<String, String> options = new HashMap<String, String>();
         options.put("header", "false");
         options.put("path", inputFile);
+        options.put("inferSchema", "true");
         options.put("delimiter", ",");
 
         // create dataframe from input file
