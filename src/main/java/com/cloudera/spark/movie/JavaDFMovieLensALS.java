@@ -17,16 +17,15 @@
 
 package com.cloudera.spark.movie;
 
-import com.cloudera.spark.dataset.DatasetMovieLens;
-import com.cloudera.spark.mllib.SparkConfUtil;
-
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.ml.evaluation.RegressionEvaluator;
 import org.apache.spark.ml.recommendation.ALSModel;
 import org.apache.spark.sql.DataFrame;
 import org.apache.spark.sql.SQLContext;
 
-import java.util.HashMap;
+import com.cloudera.spark.dataset.DatasetMovieLens;
+import com.cloudera.spark.mllib.SparkConfUtil;
 
 /**
  * Created by jayant
@@ -37,7 +36,7 @@ public final class JavaDFMovieLensALS {
 
         // input parameters
         String inputFile = "data/movielens/ratings";
-        int maxIter = 10;
+        int maxIter = 5;
         double regParam = 0.01;
 
         // spark context
@@ -60,6 +59,13 @@ public final class JavaDFMovieLensALS {
 
         DataFrame pred = model.transform(test);
         pred.show();
+      
+        RegressionEvaluator evaluator = new RegressionEvaluator()
+        .setMetricName("rmse")
+        .setLabelCol("rating")
+        .setPredictionCol("prediction");
+        Double rmse = evaluator.evaluate(pred);
+        System.out.println("Root-mean-square error = " + rmse);
       
         sc.stop();
 
