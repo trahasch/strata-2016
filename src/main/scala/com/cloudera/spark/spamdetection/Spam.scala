@@ -67,7 +67,7 @@ object Spam {
       .setOutputCol("rawFeatures")
     val idf = new IDF().setInputCol("rawFeatures").setOutputCol("features")
     val lr = new LogisticRegression()
-      .setMaxIter(10)
+      .setMaxIter(5)
     lr.setLabelCol("label")
     lr.setFeaturesCol("features")
 
@@ -81,7 +81,7 @@ object Spam {
     val predictions = lrModel.transform(testData)
     
     // display the predictions
-    predictions.select("file", "text", "label", "features", "prediction").show(5)
+    predictions.select("file", "text", "label", "features", "prediction").show(300)
 
     sc.stop()
   }
