@@ -30,7 +30,7 @@ import scala.reflect.runtime.universe
 @BeanInfo
 case class SpamDocument(file: String, text: String, label: Double)
 
-object Spark {
+object Spam {
 
   def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("Spam")
