@@ -26,6 +26,7 @@ import org.apache.spark.ml.feature.{HashingTF, Tokenizer}
 import org.apache.spark.sql.SQLContext
 import com.cloudera.spark.mllib.SparkConfUtil
 import scala.reflect.runtime.universe
+import org.apache.spark.ml.feature.IDF
 
 @BeanInfo
 case class SpamDocument(file: String, text: String, label: Double)
@@ -63,14 +64,15 @@ object Spam {
       .setOutputCol("words")
     val hashingTF = new HashingTF()
       .setInputCol(tokenizer.getOutputCol)
-      .setOutputCol("features")
+      .setOutputCol("rawFeatures")
+    val idf = new IDF().setInputCol("rawFeatures").setOutputCol("features")
     val lr = new LogisticRegression()
       .setMaxIter(10)
     lr.setLabelCol("label")
     lr.setFeaturesCol("features")
 
     val pipeline = new Pipeline()
-      .setStages(Array(tokenizer, hashingTF, lr))
+      .setStages(Array(tokenizer, hashingTF, idf, lr))
     
     val lrModel = pipeline.fit(trainingData)
     println(lrModel.toString())
