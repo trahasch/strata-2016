@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cloudera.spark
+package com.cloudera.spark.LinearRegression
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

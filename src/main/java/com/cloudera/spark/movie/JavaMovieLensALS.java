@@ -109,9 +109,9 @@ public final class JavaMovieLensALS {
         System.out.println("Printing User Features");
         for (Tuple2<Integer, double[]> t : ll) {
             String str = "";
-            for (double d : t._2)
+            for (double d : t._2())
                 str += d + " ";
-            System.out.println(t._1 + " : " + str);
+            System.out.println(t._1() + " : " + str);
         }
 
         // print the product features
@@ -121,9 +121,9 @@ public final class JavaMovieLensALS {
         System.out.println("\n\nPrinting Product Features");
         for (Tuple2<Integer, double[]> t : ll) {
             String str = "";
-            for (double d : t._2)
+            for (double d : t._2())
                 str += d + " ";
-            System.out.println(t._1 + " : " + str);
+            System.out.println(t._1() + " : " + str);
         }
 
         // compute RMSE

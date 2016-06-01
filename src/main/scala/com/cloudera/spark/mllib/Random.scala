@@ -24,6 +24,7 @@ import org.apache.spark.mllib.random.RandomRDDs
 import org.apache.spark.{SparkConf, SparkContext}
 
 import scala.util.Try
+import org.apache.spark.mllib.regression.LabeledPoint
 
 /**
  * Created by jayant
@@ -71,7 +72,9 @@ object Random {
 
       // generate test data
       val rdd = RandomRDDs.normalVectorRDD(sc, 100, 3, 1)
-      rdd.saveAsTextFile(datadir+idx)
+      val lprdd = rdd.map { x => new LabeledPoint((Math.random()*100).toInt % 3, x) }
+      
+      lprdd.saveAsTextFile(datadir+idx)
       mv(datadir+idx+"/part-00000", "streamingTestDir/"+idx)
 
       idx += 1

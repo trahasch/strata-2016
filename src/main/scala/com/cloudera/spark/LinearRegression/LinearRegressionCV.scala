@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cloudera.spark
+package com.cloudera.spark.LinearRegression
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -74,6 +74,8 @@ object LinearRegressionCV {
 
     val categoricalVariables = Array("driveway","recroom", "fullbase", "gashw", "airco", "prefarea")
 
+    
+    // String indexer
     val categoricalIndexers: Array[org.apache.spark.ml.PipelineStage] =
       categoricalVariables.map(i => new StringIndexer()
         .setInputCol(i).setOutputCol(i+"Index"))
@@ -82,6 +84,7 @@ object LinearRegressionCV {
       categoricalVariables.map(e => new OneHotEncoder()
         .setInputCol(e + "Index").setOutputCol(e + "Vec"))
 
+    // Transformer multiple columns into one column
     val assembler = new VectorAssembler()
       .setInputCols( Array(
         "lotsize", "bedrooms", "bathrms", "stories",
@@ -89,12 +92,13 @@ object LinearRegressionCV {
         "gashwVec","aircoVec", "prefareaVec"))
       .setOutputCol("features")
 
+    // Algorithm itself with parameter
     val lr = new LinearRegression()
       .setLabelCol("price")
       .setFeaturesCol("features")
       .setMaxIter(1000)
-      .setSolver("l-bfgs")
-      .setTol(1E-10)
+      .setSolver("l-bfgs") // stochastic gradient descent 
+      .setTol(1E-10)  //parameter for tolerance of conversion
 
     val paramGrid = new ParamGridBuilder()
       .addGrid(lr.regParam, Array(0.1, 0.01, 0.001))
@@ -102,13 +106,19 @@ object LinearRegressionCV {
       .addGrid(lr.elasticNetParam, Array(0.0, 1.0))
       .build()
 
+      
+    // put everything together
     val steps = categoricalIndexers ++
       categoricalEncoders ++
       Array(assembler, lr)
 
     val pipeline = new Pipeline()
       .setStages(steps)
-
+      
+      
+    // Cross validation
+    // new TrainValidationSplit() is easier but not so powerful
+    // see LinearRegressionWithEncoding.scala 
     val cv = new CrossValidator()
       .setEstimator( pipeline )
       .setEvaluator( new RegressionEvaluator().setLabelCol("price"))
