@@ -17,6 +17,9 @@
 
 package com.cloudera.spark.mllib
 
+// Stephan Trahasch
+// you need to execute Random.scala first to generate random data
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -68,7 +71,9 @@ object StreamingKMeansTrainTest {
       numDimensions = args(4).toInt
     }
 
-    // create StreamingContext
+    // ************************
+    // create StreamingContext !
+    // that' s different to SparkContext!
     val conf = new SparkConf().setMaster("local").setAppName("StreamingKMeansExample")
     SparkConfUtil.setConf(conf)
     val ssc = new StreamingContext(conf, Seconds(batchDuration))
@@ -98,4 +103,3 @@ object StreamingKMeansTrainTest {
     ssc.awaitTermination()
   }
 }
-

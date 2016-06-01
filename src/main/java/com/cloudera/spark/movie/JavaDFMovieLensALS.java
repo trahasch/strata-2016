@@ -52,16 +52,18 @@ public final class JavaDFMovieLensALS {
         DataFrame training = results.sample(true, .8);
         DataFrame test = results.sample(true, .2);
 
+        // parametrizing and running the model
         org.apache.spark.ml.recommendation.ALS als = new org.apache.spark.ml.recommendation.ALS();
         als.setUserCol("user").setItemCol("movie").setRatingCol("rating").setMaxIter(maxIter);
         als.setRegParam(regParam);
         ALSModel model =  als.fit(training);
 
+        // show prediction on the test dataset
         DataFrame pred = model.transform(test);
         pred.show();
       
         RegressionEvaluator evaluator = new RegressionEvaluator()
-        .setMetricName("rmse")
+        .setMetricName("rmse")  //Root mean squared error
         .setLabelCol("rating")
         .setPredictionCol("prediction");
         Double rmse = evaluator.evaluate(pred);

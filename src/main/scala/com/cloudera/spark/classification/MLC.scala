@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.cloudera.spark
+package com.cloudera.spark.classification
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -70,13 +70,16 @@ val splits = data.randomSplit(Array(0.6, 0.4), seed = 1234L)
 val train = splits(0)
 val test = splits(1)
 
+
+// MLP definition
 val layers = Array[Int](4, 5, 4, 3)
 val trainer = new MultilayerPerceptronClassifier()
   .setLayers(layers)
-  .setBlockSize(32)
+  .setBlockSize(32) // block size max to 1000, corresponds to the size of the feature set in a matrix
   .setSeed(1234L)
   .setMaxIter(100)
 
+  
 val model = trainer.fit(train)
 val result = model.transform(test)
 val predictionAndLabels = result.select("prediction", "label")

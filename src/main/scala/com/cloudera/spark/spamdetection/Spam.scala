@@ -15,6 +15,17 @@
  * limitations under the License.
  */
 
+/*
+ * Stephan Trahasch:
+ * If you don't have a local Hadoop installation, you have to set the variable HADOOP_CONF
+ * Otherwise you will get an error "... Exception: Could not locate executable null\bin\winutils.exe in the Hadoop ..."
+ * 
+ * Download http://public-repo-1.hortonworks.com/hdp-win-alpha/winutils.exe and put it to DISK:\FOLDERS\bin\
+ * Set the variable
+ * HADOOP_CONF=DISK:\FOLDERS
+ * 
+ */
+
 // scalastyle:off println
 package com.cloudera.spark.spamdetection
 
@@ -66,6 +77,8 @@ object Spam {
       .setInputCol(tokenizer.getOutputCol)
       .setOutputCol("rawFeatures")
     val idf = new IDF().setInputCol("rawFeatures").setOutputCol("features")
+    
+    // configuration of the model
     val lr = new LogisticRegression()
       .setMaxIter(5)
     lr.setLabelCol("label")
@@ -74,6 +87,7 @@ object Spam {
     val pipeline = new Pipeline()
       .setStages(Array(tokenizer, hashingTF, idf, lr))
     
+    // learn the model
     val lrModel = pipeline.fit(trainingData)
     println(lrModel.toString())
       

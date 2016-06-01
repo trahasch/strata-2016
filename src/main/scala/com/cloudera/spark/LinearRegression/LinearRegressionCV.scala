@@ -116,7 +116,7 @@ object LinearRegressionCV {
       .setStages(steps)
       
       
-    // Cross valdiation
+    // Cross validation
     // new TrainValidationSplit() is easier but not so powerful
     // see LinearRegressionWithEncoding.scala 
     val cv = new CrossValidator()
