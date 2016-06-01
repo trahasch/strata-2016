@@ -38,6 +38,7 @@ object Spark {
                         "num_customer_service_calls", "churned");
     
     newdf.printSchema()
+    newdf.show(8)
     
     // index churned column
     val churnedIndexer = new StringIndexer().setInputCol("churned").setOutputCol("label")
@@ -47,6 +48,7 @@ object Spark {
     // index international plan column
     val intlPlanIndexer = new StringIndexer().setInputCol("international_plan").setOutputCol("international_plan_indx")
     val dff_intl = intlPlanIndexer.fit(dff_churn).transform(dff_churn)
+    println("Schema after intl plan indexer...")
     dff_intl.printSchema()
     
     // assembler
@@ -55,6 +57,7 @@ object Spark {
           "total_day_calls", "total_day_charge", "total_eve_minutes", "total_eve_calls", "total_night_calls", "total_intl_calls"))
       .setOutputCol("features")
     val dff_assembler = assembler.transform(dff_intl)
+    println("Schema after assembler...")
     dff_assembler.printSchema()
     
     // Split the data into training and test sets (30% held out for testing)
